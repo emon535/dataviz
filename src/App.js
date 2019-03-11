@@ -6,7 +6,7 @@ class App extends Component {
 
   state ={
      data : [{
-       name: "diabetic",
+       name: "diabeticdiabeticdiabeticdiabeticdiabeticdiabetic",
        freq : 7
      },
      {

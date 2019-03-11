@@ -11,7 +11,7 @@ class BarChart extends Component{
 
         }
        
-        return sum;
+        return sum%10;
 
     }
 
@@ -38,7 +38,10 @@ class BarChart extends Component{
     }
     
     handleMouseOver(svg,d,i){
-        console.log(d);
+       svg.selectAll("circle")
+       .enter()
+       .append("circle")
+       .attr("fill","blue");
     }
 
   drawChart() {
@@ -58,26 +61,32 @@ class BarChart extends Component{
       .data(data)
       .enter()
       .append("circle")
-      .attr("cx", (d, i) => this.generatePoints(d).xAxis)
+      .attr("cx", (d, i) => (this.generatePoints(d).xAxis+1)*70)
       .attr("cy", (d, i) => (i+1)*25)
       .attr("r",(d,i)=>d.freq*3)
       .attr("fill",(d,i)=> this.getRandomColor())
-      .style("stroke","black")
-      .on("mouseover",(d,i)=>this.handleMouseOver(svg,d,i));
+      .on("mouseover",(d,i)=>{
+          console.log(svg);
+        return this.handleMouseOver(svg,d,i);
+      });
 
     svg.selectAll("text")
       .data(data)
       .enter()
       .append("text")
       .text((d)=>d.name)
-      .attr("x",(d, i) => this.generatePoints(d).xAxis)
+      .attr("x",(d, i) => {
+            console.log(svg);
+          return (this.generatePoints(d).xAxis+1)*70
+      })
       .attr("y",(d, i) => (i+1)*25)
-      .style('fill',"red")
+      .style('fill',"black")
       .style( "text-shadow", "1px 1px black")
+
      
     }
 
-
+    
     componentDidMount(){
         this.drawChart();
     }

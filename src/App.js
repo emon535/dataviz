@@ -1,25 +1,51 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import BarChart from './BarChart';
 
 class App extends Component {
+
+  state ={
+     data : [{
+       name: "diabetic",
+       freq : 7
+     },
+     {
+       name: "pain",
+       freq : 10
+     },
+     {
+      name: "heart",
+      freq : 10
+    },
+    {
+      name: "alzheimer",
+      freq : 8
+    },
+    {
+      name: "obese",
+      freq : 10
+    },
+    {
+      name: "accident",
+      freq : 8
+    },
+    {
+      name: "cancer",
+      freq : 4
+    }
+    ],
+     w :1000,
+     h : 200
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <BarChart
+          data = {this.state.data}
+          width = {this.state.w}
+          height = {this.state.h}
+        />
       </div>
     );
   }

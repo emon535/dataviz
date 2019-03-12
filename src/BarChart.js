@@ -37,11 +37,19 @@ class BarChart extends Component{
         return cordinates;
     }
     
-    handleMouseOver(svg,d,i){
-       svg.selectAll("circle")
-       .enter()
-       .append("circle")
-       .attr("fill","blue");
+    handleMouseOvermySelf(d,i,svg){
+        
+        svg.select("text")
+          .data(d)
+          .enter()
+          .append("text")
+          .text((d)=>d.name)
+          .attr("x",(d, i) => 500)
+          .attr("y",(d, i) => (i+1)*25)
+          .style('fill',"red")
+          .style( "text-shadow", "2px 1px black")
+
+        console.log("enon")
     }
 
   drawChart() {
@@ -66,9 +74,21 @@ class BarChart extends Component{
       .attr("r",(d,i)=>d.freq*3)
       .attr("fill",(d,i)=> this.getRandomColor())
       .on("mouseover",(d,i)=>{
-          console.log(svg);
-        return this.handleMouseOver(svg,d,i);
-      });
+          console.log(d);
+          svg.selectAll("text")
+            .data(data)
+            .enter()
+            .append("text")
+            .text((d)=>d.name)
+            .attr("x",(d, i) => {
+                    console.log("FIne");
+                return (this.generatePoints(d).xAxis+1)*70
+            })
+            .attr("y",(d, i) => (i+1)*25)
+            .style('fill',"black")
+            .style( "text-shadow", "1px 1px black")
+        });
+
 
     svg.selectAll("text")
       .data(data)

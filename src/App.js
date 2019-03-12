@@ -6,7 +6,7 @@ class App extends Component {
 
   state ={
      data : [{
-       name: "diabeticdiabeticdiabeticdiabeticdiabeticdiabetic",
+       name: "diabetic",
        freq : 7
      },
      {
@@ -41,6 +41,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+      <h1>Text Annotation Visualization</h1>
+      
         <BarChart
           data = {this.state.data}
           width = {this.state.w}

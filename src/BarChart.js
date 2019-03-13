@@ -31,25 +31,9 @@ class BarChart extends Component{
         }];
  
         cordinates.xAxis = this.getAsciiSumValue(data.name);
-        console.log("xAxis: "+cordinates.xAxis);
         cordinates.yAxis = 10;
         
         return cordinates;
-    }
-    
-    handleMouseOvermySelf(d,i,svg){
-        
-        svg.select("text")
-          .data(d)
-          .enter()
-          .append("text")
-          .text((d)=>d.name)
-          .attr("x",(d, i) => 500)
-          .attr("y",(d, i) => (i+1)*25)
-          .style('fill',"red")
-          .style( "text-shadow", "2px 1px black")
-
-        console.log("enon")
     }
 
   drawChart() {
@@ -58,36 +42,33 @@ class BarChart extends Component{
     const h = this.props.height;
 
 
+    const xval =  140;
+
     const svg = d3.select("body")
     .append("svg")
     .attr("width", w)
     .attr("height", h)
     .style("margin-left", 20)
-    .style("margin-top",10);
+    .style("margin-top",10)
+    .attr("text-anchor", "middle");
                   
     svg.selectAll("circle")
-      .data(data)
-      .enter()
-      .append("circle")
-      .attr("cx", (d, i) => (this.generatePoints(d).xAxis+1)*70)
-      .attr("cy", (d, i) => (i+1)*25)
-      .attr("r",(d,i)=>d.freq*3)
-      .attr("fill",(d,i)=> this.getRandomColor())
-      .on("mouseover",(d,i)=>{
-          console.log(d);
-          svg.selectAll("text")
-            .data(data)
-            .enter()
-            .append("text")
-            .text((d)=>d.name)
-            .attr("x",(d, i) => {
-                    console.log("FIne");
-                return (this.generatePoints(d).xAxis+1)*70
-            })
-            .attr("y",(d, i) => (i+1)*25)
-            .style('fill',"black")
-            .style( "text-shadow", "1px 1px black")
-        });
+        .data(data)
+        .enter()
+        .append("circle")
+        .attr("cx", (d, i) => (this.generatePoints(d).xAxis+1)*70)
+        .attr("cy", (d, i) => (i+1)*25)
+        .attr("r",(d,i)=>d.freq*3)
+        .attr("fill",(d,i)=> this.getRandomColor())
+        .on("mouseover", function(d) {
+            d3.select(this)
+            .style( "fill","#90a")   
+            console.log(d3.select(this));
+        })
+        .on("mouseout", function(d) {
+            d3.select(this)
+            .style( "fill","#90A345")   
+        })
 
 
     svg.selectAll("text")
@@ -96,14 +77,13 @@ class BarChart extends Component{
       .append("text")
       .text((d)=>d.name)
       .attr("x",(d, i) => {
-            console.log(svg);
           return (this.generatePoints(d).xAxis+1)*70
       })
       .attr("y",(d, i) => (i+1)*25)
       .style('fill',"black")
       .style( "text-shadow", "1px 1px black")
 
-     
+     this.svg = svg;
     }
 
     
